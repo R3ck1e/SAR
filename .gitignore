@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Runtime data and heavy local artifacts
+data/uploads/*
+data/raw_vids/*
+data/raw_frames/*
+data/processed_meta/*
+data/models/*
+!data/uploads/.gitkeep
+!data/raw_vids/.gitkeep
+!data/raw_frames/.gitkeep
+!data/processed_meta/.gitkeep
+!data/models/.gitkeep
+
+# Client build artifacts
+client/frontend/node_modules/
+client/frontend/dist/*
+!client/frontend/dist/.gitkeep
+client/build/
