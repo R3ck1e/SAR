@@ -1,6 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
+*.log
 
 # Runtime data and heavy local artifacts
 data/uploads/*
