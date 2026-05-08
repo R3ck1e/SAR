@@ -12,6 +12,17 @@ from processing import ProcessingError, cleanup_job, process_video, save_uploade
 app = FastAPI(title="SAR Processing Server", version="0.1.0")
 
 
+@app.get("/")
+def root() -> dict:
+    return {
+        "service": "SAR Processing Server",
+        "status": "ok",
+        "health": "/api/health",
+        "docs": "/docs",
+        "jobs": "/api/jobs",
+    }
+
+
 @app.on_event("startup")
 def on_startup() -> None:
     ensure_data_dirs()
