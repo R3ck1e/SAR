@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -37,7 +38,7 @@ type AnalyzeResult struct {
 	DetectionsCount int         `json:"detections_count"`
 	Detections      []Detection `json:"detections"`
 	AnnotatedDir    string      `json:"annotated_dir"`
-	ServerURL        string      `json:"server_url"`
+	ServerURL       string      `json:"server_url"`
 }
 
 type RemoteAnalyzeResponse struct {
@@ -197,7 +198,7 @@ func (a *App) AnalyzeRemote(videoPath string, serverURL string, fps float64, con
 		JobID:           remote.JobID,
 		DetectionsCount: remote.DetectionsCount,
 		Detections:      remote.Detections,
-		ServerURL:        serverURL,
+		ServerURL:       serverURL,
 	}, nil
 }
 
@@ -215,7 +216,12 @@ func (a *App) GetFrameURL(result AnalyzeResult, frameName string) (string, error
 		return "", err
 	}
 
-	return "file:///" + filepath.ToSlash(framePath), nil
+	image, err := os.ReadFile(framePath)
+	if err != nil {
+		return "", err
+	}
+
+	return "data:image/jpeg;base64," + base64.StdEncoding.EncodeToString(image), nil
 }
 
 func readDetections(path string) ([]Detection, error) {

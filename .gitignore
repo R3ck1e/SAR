@@ -1,4 +1,5 @@
 .venv/
+.tools/
 __pycache__/
 *.pyc
 *.log
@@ -19,4 +20,5 @@ data/models/*
 client/frontend/node_modules/
 client/frontend/dist/*
 !client/frontend/dist/.gitkeep
+client/frontend/package.json.md5
 client/build/

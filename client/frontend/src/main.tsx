@@ -8,23 +8,7 @@ import {
   GetFrameURL,
   SelectVideo,
 } from '../wailsjs/go/main/App';
-
-type Detection = {
-  frame_name: string;
-  frame_index: number;
-  class_name: string;
-  confidence: number;
-  bbox: Record<string, number>;
-};
-
-type AnalyzeResult = {
-  mode: string;
-  job_id: string;
-  detections_count: number;
-  detections: Detection[];
-  annotated_dir?: string;
-  server_url?: string;
-};
+import { main } from '../wailsjs/go/models';
 
 function App() {
   const [videoPath, setVideoPath] = useState('');
@@ -33,7 +17,7 @@ function App() {
   const [fps, setFps] = useState(1);
   const [conf, setConf] = useState(0.35);
   const [status, setStatus] = useState('Готов к запуску');
-  const [result, setResult] = useState<AnalyzeResult | null>(null);
+  const [result, setResult] = useState<main.AnalyzeResult | null>(null);
   const [selectedFrame, setSelectedFrame] = useState('');
   const [frameURL, setFrameURL] = useState('');
 
@@ -91,7 +75,7 @@ function App() {
     }
   }
 
-  async function openFrame(sourceResult: AnalyzeResult, frameName: string) {
+  async function openFrame(sourceResult: main.AnalyzeResult, frameName: string) {
     setSelectedFrame(frameName);
     const url = await GetFrameURL(sourceResult, frameName);
     setFrameURL(url);
